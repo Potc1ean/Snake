@@ -12,7 +12,7 @@
 
 .PHONY: all clean fclean re
 
-NAME = prog
+NAME = snake
 
 #//////////////////////////////////////////////////////////////////////////////
 #		COLORS
@@ -28,9 +28,9 @@ RESET  = \033[0m
 #		ALL FILES
 #//////////////////////////////////////////////////////////////////////////////
 
-SRCS =	srcs/main.cpp	
+SRCS =	srcs/main.cpp	srcs/Snake.cpp	srcs/Map.cpp
 
-HEAD =	includes/Snake.hpp
+HEAD =	includes/Snake.hpp	includes/Map.hpp
 
 OBJS = $(SRCS:srcs/%.cpp=objs/%.o)
 
@@ -40,7 +40,7 @@ OBJS = $(SRCS:srcs/%.cpp=objs/%.o)
 
 # Compiler and flags
 CXX = c++
-CXXFLAGS = -std=c++98 -pedantic -g -Iincludes  #-Wall -Wextra -Werror
+CXXFLAGS = -pedantic -g -Iincludes  #-Wall -Wextra -Werror
 
 # Remove command
 RM = rm -f

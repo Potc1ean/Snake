@@ -7,6 +7,8 @@ int main( void )
     Map nils_garden(nils);
     char step = 'd';
 
+    nils_garden.refresh(nils);
+    std::cout << nils_garden << std::endl;
     while (step != 'p') {
         std::cin >> step;
         std::cout << step << std::endl;
