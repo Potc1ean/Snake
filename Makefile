@@ -28,11 +28,11 @@ RESET  = \033[0m
 #		ALL FILES
 #//////////////////////////////////////////////////////////////////////////////
 
-SRCS =	srcs/main.cpp	srcs/Snake.cpp	srcs/Map.cpp
+SRCS =	srcs/main.cc	srcs/Snake.cc	srcs/Map.cc srcs/Apple.cc 
 
-HEAD =	includes/Snake.hpp	includes/Map.hpp
+HEAD =	includes/Snake.hh	includes/Map.hh		includes/Apple.hh
 
-OBJS = $(SRCS:srcs/%.cpp=objs/%.o)
+OBJS = $(SRCS:srcs/%.cc=objs/%.o)
 
 #//////////////////////////////////////////////////////////////////////////////
 #		COMMAND SHORTCUTS
@@ -57,7 +57,7 @@ $(NAME): $(OBJS)
 	@echo -e "$(GREEN)Executable $@ created successfully!$(RESET)"
 
 # Compile sources to objects
-objs/%.o: srcs/%.cpp $(HEAD)
+objs/%.o: srcs/%.cc $(HEAD)
 	@mkdir -p objs	
 	@echo -ne "$(BLUE)Compiling $<...$(RESET)\033[K\r"
 	@$(CXX) $(CXXFLAGS) -c $< -o $@ || (echo -e "$(RED)Error compiling $<$(RESET)"; exit 1)

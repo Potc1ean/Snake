@@ -5,6 +5,7 @@
 #include <iostream>
 
 class Snake;
+class Apple;
 
 namespace MapConfig {
     // --- Dimensions ---
@@ -22,15 +23,13 @@ class Map {
     private:
         std::vector<std::string> map;
     public:
-        // --- Constructors / Destructors ---
-        explicit Map(const Snake& s);
+    // --- Constructors / Destructors ---
+        explicit Map();
         ~Map() = default;
-
-        // --- Methods ---
-        void refresh(const Snake& s);
-
-        // --- Getters ---
+    // --- Methods ---
+        void refresh(const Snake& s, const Apple& apple);
+    // --- Getters ---
         const std::vector<std::string>& getMap() const { return map; }
 };
 
-std::ostream& operator<<(std::ostream &o, Map &field);
+std::ostream& operator<<(std::ostream &o, const Map &field);

@@ -1,13 +1,13 @@
-#include "Map.hpp"
-#include "Snake.hpp"
+#include "Map.hh"
+#include "Snake.hh"
+#include "Apple.hh"
 
 #include <cstdlib>
 
-Map::Map(const Snake &s) 
-    : map(MapConfig::HEIGHT, std::string(MapConfig::WIDTH, MapConfig::EMPTY)) { }
+Map::Map() : map(MapConfig::HEIGHT, std::string(MapConfig::WIDTH, MapConfig::EMPTY)) { }
 
 
-void Map::refresh(const Snake &s) {
+void Map::refresh(const Snake& s, const Apple& apple) {
     #ifdef _WIN32
         std::system("cls");
     #else
@@ -24,9 +24,12 @@ void Map::refresh(const Snake &s) {
         std::string &tmp = map[i->y];
         tmp[i->x] = MapConfig::SNAKE;
     }
+
+    std::string &tmp = map[apple.getY()];
+    tmp[apple.getX()] = MapConfig::APPLE;
 }
 
-std::ostream& operator<<(std::ostream &o, Map &field) {
+std::ostream& operator<<(std::ostream &o, const Map &field) {
     std::vector<std::string> baddys_field = field.getMap();
 
     for (int i = 0; i < MapConfig::WIDTH * 2 + 2; i++)
@@ -44,6 +47,5 @@ std::ostream& operator<<(std::ostream &o, Map &field) {
     }
     for (int i = 0; i < MapConfig::WIDTH * 2 + 2; i++)
         o << MapConfig::BORDER;
-    o <<std::endl;
     return o;
 }

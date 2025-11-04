@@ -1,5 +1,6 @@
-#include "Snake.hpp"
-#include "Map.hpp"
+#include "Snake.hh"
+#include "Map.hh"
+#include "Apple.hh"
 
 Snake::Snake() : body_len(3) {
     peaceOfSkane head;
@@ -23,7 +24,7 @@ Snake::~Snake()
 {
 }
 
-void Snake::run(char step) {
+void Snake::run(char step, Apple &apple) {
     peaceOfSkane tmp = body.back();
 
     peaceOfSkane head;
@@ -41,7 +42,12 @@ void Snake::run(char step) {
     else 
         return;
     body.push_back(head);
-    body.pop_front();
+    if (head.x == apple.getX() && head.y == apple.getY()) {
+        apple.newApple(*this);
+        body_len++;
+    }
+    else
+        body.pop_front();
 }
 
 std::ostream& operator<<(std::ostream &o, Snake s) {
@@ -49,10 +55,10 @@ std::ostream& operator<<(std::ostream &o, Snake s) {
     int n = 0;
 
     o << "////////////////////"<< std::endl;
-    for (std::list<peaceOfSkane>::iterator i = baddys.begin(); i != baddys.end(); i++)
+    for (std::list<peaceOfSkane>::iterator it = baddys.begin(); it != baddys.end(); it++)
     {
         o << "Peace of snake n*" << n << " : " << std::endl;
-        o << "x = " << i->x << " | " <<  "y = " << i->y << std::endl;
+        o << "x = " << it->x << " | " <<  "y = " << it->y << std::endl;
         n++;
     }
     o << "////////////////////"<< std::endl;
