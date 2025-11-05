@@ -1,31 +1,37 @@
-#include "Snake.hh"
-#include "Map.hh"
-#include "Apple.hh"
+#include "Game.hh"
 
-int main( void )
+int main(void)
 {
-    Snake nils;
-    Apple apple(nils);
-    Map nils_garden;
-    char step = 'd';
+    Game game;
+    game.home();
 
-    nils_garden.refresh(nils, apple);
-    std::cout << nils_garden << std::endl;
+    int diff_lvl;
+    while (true) {
+        std::cin >> diff_lvl;
 
-    while (step != 'p') {
-        std::cin >> step;
-        std::cout << step << std::endl;
-        nils.run(step, apple);
-        nils_garden.refresh(nils, apple);
-        std::cout << nils_garden << std::endl;
+        if (std::cin.fail()) {
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            std::cout << "Invalid input! Please enter a number between 1 and 3.\n";
+            continue;
+        }
+        if (diff_lvl >= 1 && diff_lvl <= 3) {
+            break;
+        }
     }
-    std::cout<< "Your score is " << nils.get_snake_len() - 3 << std::endl;
+    game.settDifficulty(diff_lvl);
+
+    try {
+        #ifdef _WIN32
+            game.loopWindows();
+        #else
+            game.loopLinux();
+        #endif
+    } catch (std::exception &e) {
+        game.end();
+        std::cout << e.what() << std::endl;
+        return 0;
+    }
+    game.end();
     return 0;
 }
-
-/* Suite :
-*   Colisions
-*   live
-*   end of game
-*   presentation end screen and start screen
-*/

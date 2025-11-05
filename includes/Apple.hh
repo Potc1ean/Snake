@@ -14,8 +14,10 @@ class Apple
     // --- Constructors / Destructors ---
         Apple(const Snake &s);
         ~Apple() = default;
+
     // --- Methods ---
         void newApple(const Snake &s);
+        
     // --- getters ---
         int getX() const { return x; }
         int getY() const { return y; }

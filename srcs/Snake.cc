@@ -2,7 +2,22 @@
 #include "Map.hh"
 #include "Apple.hh"
 
-Snake::Snake() : body_len(3) {
+#include <algorithm>
+#include <cstring>
+
+bool Snake::isOutOfBounds() const {
+    const auto& head = body.back();
+    return head.x < 0 || head.x >= MapConfig::WIDTH ||
+           head.y < 0 || head.y >= MapConfig::HEIGHT;
+}
+
+bool Snake::isCollidingWithSelf() const {
+    const auto& head = body.back();
+    return std::any_of(body.begin(), std::prev(body.end()),
+        [&](const peaceOfSkane& p) { return p.x == head.x && p.y == head.y; });
+}
+
+Snake::Snake() : body_len(3), has_collided(false) {
     peaceOfSkane head;
     head.x = 2;
     head.y = 0;
@@ -20,8 +35,8 @@ Snake::Snake() : body_len(3) {
     body.push_back(head);
 }
 
-Snake::~Snake()
-{
+void Snake::updateCollision() {
+    has_collided = isOutOfBounds() || isCollidingWithSelf();
 }
 
 void Snake::run(char step, Apple &apple) {
@@ -31,6 +46,8 @@ void Snake::run(char step, Apple &apple) {
     head.x = tmp.x;
     head.y = tmp.y;
 
+    if (std::strchr("wsda", step) == NULL)
+        step = last_step;
     if (step == 'w')
         head.y--;
     else if (step == 's')
@@ -39,18 +56,21 @@ void Snake::run(char step, Apple &apple) {
         head.x++;
     else if (step == 'a')
         head.x--;
-    else 
-        return;
+
     body.push_back(head);
+
     if (head.x == apple.getX() && head.y == apple.getY()) {
         apple.newApple(*this);
         body_len++;
     }
     else
         body.pop_front();
+
+    updateCollision();
+    last_step = step;
 }
 
-std::ostream& operator<<(std::ostream &o, Snake s) {
+std::ostream& operator<<(std::ostream &o, const Snake& s) {
     std::list<peaceOfSkane> baddys = s.get_snake();
     int n = 0;
 

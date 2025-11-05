@@ -28,9 +28,9 @@ RESET  = \033[0m
 #		ALL FILES
 #//////////////////////////////////////////////////////////////////////////////
 
-SRCS =	srcs/main.cc	srcs/Snake.cc	srcs/Map.cc srcs/Apple.cc 
+SRCS =	srcs/main.cc	srcs/Snake.cc	srcs/Map.cc srcs/Apple.cc srcs/Game.cc
 
-HEAD =	includes/Snake.hh	includes/Map.hh		includes/Apple.hh
+HEAD =	includes/Snake.hh	includes/Map.hh		includes/Apple.hh includes/Game.hh
 
 OBJS = $(SRCS:srcs/%.cc=objs/%.o)
 

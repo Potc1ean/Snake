@@ -4,6 +4,7 @@
 
 #include <algorithm>
 #include <chrono>
+#include <exception>
 
 std::mt19937 Apple::gen(std::random_device{}());
 
@@ -17,7 +18,7 @@ void Apple::newApple(const Snake &s) {
 
     bool in_snake;
     int tmp_x, tmp_y;
-    int tests = 0;
+    int trys = 0;
     do {
         tmp_x = Xdistrib(gen);
         tmp_y = Ydistrib(gen);
@@ -26,6 +27,9 @@ void Apple::newApple(const Snake &s) {
             s.get_snake().end(),
             [&](const peaceOfSkane& p) { return p.x == tmp_x && p.y == tmp_y; }
         );
+        trys++;
+        if (trys > 100)
+            throw std::out_of_range("No space for a new apple");
     } while (in_snake);
     x = tmp_x;
     y = tmp_y;

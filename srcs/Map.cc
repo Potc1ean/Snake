@@ -22,7 +22,10 @@ void Map::refresh(const Snake& s, const Apple& apple) {
     for (std::list<peaceOfSkane>::iterator i = baddys.begin(); i != baddys.end(); i++)
     {
         std::string &tmp = map[i->y];
-        tmp[i->x] = MapConfig::SNAKE;
+        if (i == std::prev(baddys.end()))
+            tmp[i->x] = MapConfig::SNAKE_HEAD;
+        else
+            tmp[i->x] = MapConfig::SNAKE_BODY;
     }
 
     std::string &tmp = map[apple.getY()];
@@ -34,7 +37,7 @@ std::ostream& operator<<(std::ostream &o, const Map &field) {
 
     for (int i = 0; i < MapConfig::WIDTH * 2 + 2; i++)
         o << MapConfig::BORDER;
-    o <<std::endl;
+    o << std::endl;
     for (std::vector<std::string>::iterator i = baddys_field.begin(); i != baddys_field.end(); i++)
     {
         std::string tmp;
