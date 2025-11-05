@@ -16,12 +16,12 @@
 class Game
 {
     private:
+        char step;
+        int difficulty;
+        
         Snake nils;
         Apple apple;
         Map nils_garden;
-
-        char step;
-        int difficulty;
     public:
         Game();
         ~Game() = default;

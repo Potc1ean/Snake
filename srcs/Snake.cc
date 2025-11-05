@@ -17,7 +17,7 @@ bool Snake::isCollidingWithSelf() const {
         [&](const peaceOfSkane& p) { return p.x == head.x && p.y == head.y; });
 }
 
-Snake::Snake() : body_len(3), has_collided(false) {
+Snake::Snake(char step) : body_len(3), has_collided(false), last_step(step) {
     peaceOfSkane head;
     head.x = 2;
     head.y = 0;

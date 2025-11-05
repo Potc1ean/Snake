@@ -4,7 +4,7 @@
 #include <chrono>
 #include <iomanip>
 
-Game::Game() : apple(nils), step('d') { }
+Game::Game() : step('d'), nils(step), apple(nils) { }
 
 void Game::settDifficulty(int diff_lvl) {
     difficulty = diff_lvl;
@@ -20,7 +20,6 @@ void Game::settDifficulty(int diff_lvl) {
         while (step != 'p') {
             if (_kbhit())
                 step = _getch();
-            std::cout << step << std::endl;
             nils.run(step, apple);
             if (nils.hasCollided())
                 break;
@@ -64,7 +63,6 @@ void Game::settDifficulty(int diff_lvl) {
         while (step != 'p') {
             if (kbhit())
                 step = getchar();
-            std::cout << step << std::endl;
             nils.run(step, apple);
             if (nils.hasCollided())
                 break;

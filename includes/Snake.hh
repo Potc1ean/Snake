@@ -24,7 +24,7 @@ class Snake
         
     public:
     // --- Constructors / Destructors ---
-        Snake();
+        Snake(char step);
         ~Snake() = default;
 
     // --- Methods ---
