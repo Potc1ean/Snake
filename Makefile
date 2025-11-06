@@ -40,7 +40,7 @@ OBJS = $(SRCS:srcs/%.cc=objs/%.o)
 
 # Compiler and flags
 CXX = c++
-CXXFLAGS = -pedantic -g -Iincludes  -Wall -Wextra -Werror
+CXXFLAGS = -std=c++17 -pedantic -g -Iincludes  -Wall -Wextra -Werror
 
 # Remove command
 RM = rm -f
